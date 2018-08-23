@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -55,6 +57,10 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
         edt_time.setOnClickListener(this);
         edt_memo = findViewById(R.id.edtMemo);
         edt_memo.setOnClickListener(this);
+        edt_memo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//設置EditText的顯示方式為多行文本輸入
+        edt_memo.setGravity(Gravity.TOP);//文本顯示的位置在EditText的最上方
+        edt_memo.setSingleLine(false);//改變默認的單行模式
+        edt_memo.setHorizontallyScrolling(false); //水平滾動設置為False
         sp_color = findViewById(R.id.sp_colors);
         colors = getResources().getStringArray(R.array.colors);
         Log.i("color=", String.valueOf(colors));

@@ -8,6 +8,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,6 +56,10 @@ public class ShowActivity extends AppCompatActivity {
     private void initView() {
         time_view = findViewById(R.id.time_view);
         content_view = findViewById(R.id.content_view);
+        content_view.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//設置EditText的顯示方式為多行文本輸入
+        content_view.setGravity(Gravity.TOP);//文本顯示的位置在EditText的最上方
+        content_view.setSingleLine(false);//改變默認的單行模式
+        content_view.setHorizontallyScrolling(false); //水平滾動設置為False
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
