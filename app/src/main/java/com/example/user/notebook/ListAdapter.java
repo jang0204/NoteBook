@@ -27,10 +27,10 @@ public class ListAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         LinearLayout container = view.findViewById(R.id.bg_memo);
         TextView date = view.findViewById(R.id.txtDate);
-        TextView memo = view.findViewById(R.id.txtMemo);
+        TextView title = view.findViewById(R.id.txtTitle);
         Log.i("color=", cursor.getString(4));
         date.setText(cursor.getString(cursor.getColumnIndexOrThrow("date")));
-        memo.setText(cursor.getString(cursor.getColumnIndexOrThrow("memo")));
+        title.setText(cursor.getString(cursor.getColumnIndexOrThrow("remind")));
         container.setBackgroundColor(Color.parseColor("#"+cursor.getString(4)));
     }
 }

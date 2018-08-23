@@ -24,10 +24,10 @@ import java.util.Calendar;
 public class EditActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView txtTitle;
-    EditText edt_time, edt_memo;
+    EditText edt_time, edt_title, edt_memo;
     Button btn_ok, btn_back;
     Spinner sp_color;
-    String new_time, new_memo, selected_color;
+    String new_time, new_title, new_memo, selected_color;
     Bundle bundle;
     String[] colors;
     SpinnerAdapter spinnerAdapter;
@@ -48,13 +48,16 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
             txtTitle.setText("編輯便條");
             index = bundle.getInt("item_id");
             Cursor cursor = dbAdapter.queryById(index);
-            edt_memo.setText(cursor.getString(2));
+            edt_title.setText(cursor.getString(2));
+            edt_memo.setText(cursor.getString(3));
         }
     }
     private void initView() {
         txtTitle = findViewById(R.id.txtTitle);
         edt_time = findViewById(R.id.edtTime);
         edt_time.setOnClickListener(this);
+        edt_title = findViewById(R.id.edtTitle);
+        edt_title.setOnClickListener(this);
         edt_memo = findViewById(R.id.edtMemo);
         edt_memo.setOnClickListener(this);
         edt_memo.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//設置EditText的顯示方式為多行文本輸入
@@ -111,6 +114,9 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 }, mYear, mMonth, mDay);
                 datePickerDialog.show();
                 break;
+            case R.id.edtTitle:
+                if (bundle.getString("type").equals("add")) edt_title.setText("");
+                break;
             case R.id.edtMemo:
                 if (bundle.getString("type").equals("add")) edt_memo.setText("");
                 break;
@@ -118,12 +124,14 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 //取得edit資料
                 new_time = edt_time.getText().toString();
                 Log.i("time=", new_time);
+                new_title = edt_title.getText().toString();
+                Log.i("title=",new_title);
                 new_memo = edt_memo.getText().toString();
                 Log.i("memo=", new_memo);
                 if (bundle.getString("type").equals("edit")) {
                     try {
                         //更新資料庫中的資料
-                        dbAdapter.updateMemo(index, new_time, new_memo, null, selected_color);
+                        dbAdapter.updateMemo(index, new_time, new_title, new_memo, selected_color);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {
@@ -135,11 +143,12 @@ public class EditActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     //測試是否有被log出來
                     Log.i("new_time=", new_time);
+                    Log.i("new_time=", new_title);
                     Log.i("new_memo=", new_memo);
                     Log.i("selected_color=", selected_color);
                     try {
                         //呼叫adapter的方法處理新增
-                        dbAdapter.createMemo(new_time, new_memo, null, selected_color);
+                        dbAdapter.createMemo(new_time, new_title, new_memo,  selected_color);
                     } catch (Exception e) {
                         e.printStackTrace();
                     } finally {

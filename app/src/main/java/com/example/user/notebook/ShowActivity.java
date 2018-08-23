@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ShowActivity extends AppCompatActivity {
-    TextView time_view, content_view;
+    TextView time_view, title_view, content_view;
     Bundle bundle;
     private DbAdapter dbAdapter;
     int cursor_id, index;
@@ -39,7 +39,8 @@ public class ShowActivity extends AppCompatActivity {
         Cursor cursor = dbAdapter.queryById(cursor_id);//透過dbAdapter的queryById方法取得資料
         index = cursor.getInt(0);//將資料顯示在畫面上
         time_view.setText(cursor.getString(1));
-        content_view.setText(cursor.getString(2));
+        title_view.setText(cursor.getString(2));
+        content_view.setText(cursor.getString(3));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -55,6 +56,7 @@ public class ShowActivity extends AppCompatActivity {
     }
     private void initView() {
         time_view = findViewById(R.id.time_view);
+        title_view = findViewById(R.id.title_view);
         content_view = findViewById(R.id.content_view);
         content_view.setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);//設置EditText的顯示方式為多行文本輸入
         content_view.setGravity(Gravity.TOP);//文本顯示的位置在EditText的最上方
